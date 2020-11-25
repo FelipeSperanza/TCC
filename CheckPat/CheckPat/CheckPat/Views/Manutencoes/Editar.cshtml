@@ -1,0 +1,101 @@
+﻿@model CheckPat.Models.ViewModels.PatrimonioViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width" />
+    <title>Editar Patrimônio</title>
+</head>
+<body>
+
+    <!-- Menu de navegação-->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #00008B;">
+        <a class="navbar-brand" style="padding-left: 108px;" href="#">CheckPat</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Manutencoes" asp-action="Index">Manutenção</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Locais" asp-action="Index">Locais</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Equipamentos" asp-action="Index">Equipamentos</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Patrimonios" asp-action="Index">Patrimônios</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Relatorios" asp-action="Index">Relatórios</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Manutencoes" asp-action="Login">Sair</a>
+                </li>
+
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0" asp-controller="Patrimonios" asp-action="Buscar" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search" name="nome">
+                <input class="btn btn-outline-light my-2 my-sm-0" type="submit" value="Buscar" />
+            </form>
+        </div>
+    </nav>
+
+    <br /> <br />
+
+    <div style="padding-left: 120px; width: 600px;">
+
+        <h3>Edição de Patrimônio</h3>
+
+        <hr />
+
+        <form method="post" asp-controller="Manutencoes" asp-action="Editar">
+            <input type="hidden" asp-for="Patrimonio.Id" />
+
+            <div class="form-group">
+                <label for="labelEquipamento">Patrimônio</label>
+                <input type="text" class="form-control" asp-for="Patrimonio.NumeroPatrimonio" required>
+            </div>
+            <div class="form-group">
+                <label for="labelEquipamento">Numero de série</label>
+                <input type="text" class="form-control" asp-for="Patrimonio.NumeroSerie" required>
+            </div>
+            <div class="form-group">
+                <label for="labelEquipamento">Local</label>
+                <select class="form-control" asp-for="Patrimonio.LocalId" asp-items="@(new SelectList(Model.Locais, "Id", "Nome"))"></select>
+            </div>
+            <div class="form-group">
+                <label for="labelEquipamento">Equipamento</label>
+                <select class="form-control" asp-for="Patrimonio.EquipamentoId" asp-items="@(new SelectList(Model.Equipamentos, "Id", "Nome"))"></select>
+            </div>
+            <div class="form-group">
+                <label for="labelEquipamento">Coordenadas</label>
+                <input type="text" class="form-control" asp-for="Patrimonio.Coordenadas">
+            </div>
+            <div class="form-group">
+                <label for="labelEquipamento">Usuário</label>
+                <input type="text" class="form-control" asp-for="Patrimonio.Usuario">
+            </div>
+            <div class="form-group">
+                <label for="labelEquipamento">Obervações</label>
+                <input type="text" class="form-control" asp-for="Patrimonio.Observacao">
+            </div>
+            <div class="form-group">
+                <label for="labelAdmin">Manutenção: &nbsp;</label>
+                <input type="radio" asp-for="Patrimonio.Manutencao" value='true' required>
+                <label class="form-check-label">Sim &nbsp;</label>
+                <input type="radio" asp-for="Patrimonio.Manutencao" value='false'>
+                <label class="form-check-label"> Não</label>
+            </div>
+
+            <input type="submit" class="btn btn-outline-light my-2 my-sm-0" value="Editar" style="background-color: #00008B;" />
+            <a asp-action="Index">&nbsp;&nbsp; Volte para  lista</a>
+
+        </form>
+    </div>
+</body>
+</html>
+
